@@ -284,7 +284,7 @@ public class OneRight_Krishna_Save extends LinearOpMode {
 //                        .splineToLinearHeading(new Pose2d(-34,-11, Math.toRadians(-180)),Math.toRadians(150))
 //                        .turn(Math.toRadians(50))
                     .forward(30)
-                    .splineTo(new Vector2d(36,-7.5),Math.toRadians(140))
+                    .splineTo(new Vector2d(36,-6.5),Math.toRadians(140))
                     .addTemporalMarker(0.4, () -> { // from -20, -10 --> Shrish
                         up();
                     })
@@ -321,7 +321,7 @@ public class OneRight_Krishna_Save extends LinearOpMode {
                         leftslide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                         stop.setPosition(0.65);//hold poll
                     })
-                    .addTemporalMarker(1.8, () -> {
+                    .addTemporalMarker(1.85, () -> {
                         pickup();
                     })
 
@@ -331,7 +331,7 @@ public class OneRight_Krishna_Save extends LinearOpMode {
                         up();
                     })
                     .forward(10)
-                    .splineTo(new Vector2d(38,-7),Math.toRadians(140))
+                    .splineTo(new Vector2d(38,-6.2),Math.toRadians(140))
                     .addTemporalMarker(4, () -> { // from -20, -10 --> Shrish
                         drop();
                     })
@@ -354,7 +354,7 @@ public class OneRight_Krishna_Save extends LinearOpMode {
                         leftslide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                         stop.setPosition(0.65);//hold poll
                     })
-                .addTemporalMarker(2, () -> {
+                .addTemporalMarker(2.1, () -> {
                     pickup();
                 })
                     .build();
@@ -394,12 +394,41 @@ public class OneRight_Krishna_Save extends LinearOpMode {
                         up();
                     })
                     .forward(10)
+                    .splineTo(new Vector2d(38,-6),Math.toRadians(140))
+                    .addTemporalMarker(4, () -> { // from -20, -10 --> Shrish
+                        drop();
+                    })
+                    .build();
+            Trajectory pick_4 = drive.trajectoryBuilder(drop_4.end(), true)
+                    .splineTo(new Vector2d(44,-12),Math.toRadians(-5))
+                    .back(10)
+                    .addTemporalMarker(0.2, () -> { // from -20, -10 --> Shrish
+                        twist.setPosition(0.94);//pickup
+                        arm.setTargetPosition(2125);
+                        arm.setPower(1);
+                        arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                        rightslide.setTargetPosition(90);
+                        leftslide.setTargetPosition(90);
+                        rightslide.setPower (1);
+                        leftslide.setPower(1);
+                        rightslide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                        leftslide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                        stop.setPosition(0.65);//hold poll
+                    })
+                    .addTemporalMarker(2.15, () -> {
+                        pickup();
+                    })
+                    .build();
+            Trajectory drop_5 = drive.trajectoryBuilder(pick_4.end(),true)
+                    .addTemporalMarker(0.4, () -> { // from -20, -10 --> Shrish
+                        up();
+                    })
+                    .forward(10)
                     .splineTo(new Vector2d(38.5,-6),Math.toRadians(140))
                     .addTemporalMarker(4, () -> { // from -20, -10 --> Shrish
                         drop();
                     })
                     .build();
-
 
             drive.followTrajectorySequence(drop_1);
 
@@ -437,6 +466,17 @@ public class OneRight_Krishna_Save extends LinearOpMode {
 
 
             drive.followTrajectory(drop_4);
+            drive.followTrajectory(pick_4);
+            rightslide.setTargetPosition(900);
+            leftslide.setTargetPosition(900);
+            rightslide.setPower (1);
+            leftslide.setPower(1);
+            rightslide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            leftslide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            sleep(400);
+
+
+            drive.followTrajectory(drop_5);
 
 
 
