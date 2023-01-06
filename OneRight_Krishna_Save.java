@@ -321,7 +321,7 @@ public class OneRight_Krishna_Save extends LinearOpMode {
                         leftslide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                         stop.setPosition(0.65);//hold poll
                     })
-                    .addTemporalMarker(2, () -> {
+                    .addTemporalMarker(1.8, () -> {
                         pickup();
                     })
 
