@@ -284,7 +284,7 @@ public class OneRight_Krishna_Save extends LinearOpMode {
 //                        .splineToLinearHeading(new Pose2d(-34,-11, Math.toRadians(-180)),Math.toRadians(150))
 //                        .turn(Math.toRadians(50))
                     .forward(30)
-                    .splineTo(new Vector2d(37.5,-7.5),Math.toRadians(140))
+                    .splineTo(new Vector2d(36,-7.5),Math.toRadians(140))
                     .addTemporalMarker(0.4, () -> { // from -20, -10 --> Shrish
                         up();
                     })
