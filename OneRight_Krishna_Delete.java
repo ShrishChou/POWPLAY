@@ -10,6 +10,7 @@ import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
+import com.acmerobotics.roadrunner.trajectory.TrajectoryBuilder;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -29,9 +30,9 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 import java.util.ArrayList;
 
 @Config
-@Autonomous(name="1rightright", group="Tutorials")
+@Autonomous(name="1rightleft", group="Tutorials")
 
-public class OneRight_Krishna_Save extends LinearOpMode {
+public class OneRight_Krishna_Delete extends LinearOpMode {
 
 
 
@@ -431,7 +432,6 @@ public class OneRight_Krishna_Save extends LinearOpMode {
                     .build();
             Trajectory pick_5 = drive.trajectoryBuilder(drop_5.end(), true)
                     .splineTo(new Vector2d(44,-12),Math.toRadians(-6.5))
-                    .back(20)
                     .addTemporalMarker(0.2, () -> { // from -20, -10 --> Shrish
                         arm.setTargetPosition(0);
                         arm.setPower(1);
@@ -444,6 +444,9 @@ public class OneRight_Krishna_Save extends LinearOpMode {
                         leftslide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                         stop.setPosition(0.65);//hold poll
                     })
+                    .build();
+            Trajectory park = drive.trajectoryBuilder(pick_5.end())
+                    .lineToConstantHeading(new Vector2d(20,-14))
                     .build();
 
             drive.followTrajectorySequence(drop_1);
@@ -494,6 +497,7 @@ public class OneRight_Krishna_Save extends LinearOpMode {
 
             drive.followTrajectory(drop_5);
             drive.followTrajectory(pick_5);
+            drive.followTrajectory(park);
 
 
 
